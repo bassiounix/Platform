@@ -1,6 +1,13 @@
 import { Application } from "@/deps.ts";
 import { router } from "@/router/router.ts";
 import "https://deno.land/x/dotenv@v3.1.0/load.ts";
+import {
+  bgRed,
+  cyan,
+  green,
+  white,
+  yellow,
+} from "https://deno.land/std/fmt/colors.ts";
 
 const app = new Application();
 
@@ -8,8 +15,11 @@ const app = new Application();
 app
   .use(async (ctx, next) => {
     await next();
-    const rt = ctx.response.headers.get("X-Response-Time");
-    console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
+    const responseTime = ctx.response.headers.get("X-Response-Time");
+    console.log(
+      `${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)}`,
+    );
+    console.log(`${bgRed(white(String(responseTime)))}`);
   })
   // Timing
   .use(async (ctx, next) => {
@@ -18,11 +28,24 @@ app
     const ms = Date.now() - start;
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
   })
+  // Router middlewares
   .use(router.routes())
-  .use(router.allowedMethods());
+  .use(router.allowedMethods())
+  // Not Found 404
+  .use((ctx) => {
+    ctx.response.status = 404;
+    ctx.response.body = {
+      success: false,
+      message: "404 - Not found.",
+    };
+  });
 
-app.addEventListener("listen", (e) => {
-  console.log(`listening on http://localhost:${e.port}/`);
+app.addEventListener("listen", ({ secure, hostname, port }) => {
+  const protocol = secure ? "https://" : "http://";
+  const url = `${protocol}${hostname ?? "localhost"}:${port}/`;
+  console.log(
+    `${yellow("Listening on:")} ${green(url)}`,
+  );
 });
 
 app.listen({ port: parseInt(Deno.env.get("PORT") || "3000") });
