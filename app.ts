@@ -10,4 +10,4 @@ app.addEventListener("listen", e => {
 app
   .use(router.routes())
   .use(router.allowedMethods())
-  .listen({ port: parseInt(Deno.env.get("PORT") as string) || 3000 });
+  .listen({ port: parseInt(Deno.env.get("PORT") || "3000") });
