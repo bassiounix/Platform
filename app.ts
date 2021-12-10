@@ -3,7 +3,7 @@ import { router } from "@/router/router.ts";
 
 const app = new Application();
 
-app.addEventListener("listen", (e) => {
+app.addEventListener("listen", e => {
   console.log(`listening on http://localhost:${e.port}/`);
 });
 
