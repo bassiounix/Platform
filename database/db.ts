@@ -14,5 +14,3 @@ db.link([Users]);
 db.sync({ drop: true });
 
 export { Users };
-
-await db.close();
