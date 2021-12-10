@@ -1,4 +1,4 @@
-import { Application } from "@/deps.ts";
+import { Application, send } from "@/deps.ts";
 import { router } from "@/router/router.ts";
 import "https://deno.land/x/dotenv@v3.1.0/load.ts";
 import {
@@ -31,6 +31,11 @@ app
   // Router middlewares
   .use(router.routes())
   .use(router.allowedMethods())
+  .use(async (ctx) => {
+    await send(ctx, ctx.request.url.pathname, {
+      root: `${Deno.cwd()}/static`,
+    });
+  })
   // Not Found 404
   .use((ctx) => {
     ctx.response.status = 404;
