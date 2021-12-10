@@ -48,4 +48,8 @@ app.addEventListener("listen", ({ secure, hostname, port }) => {
   );
 });
 
+app.addEventListener("error", (e) => {
+  console.log(e);
+});
+
 app.listen({ port: parseInt(Deno.env.get("PORT") || "3000") });
