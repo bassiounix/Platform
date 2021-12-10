@@ -1,3 +1,0 @@
--- @BLOCK
-SELECT * FROM users;
-
