@@ -15,4 +15,4 @@ db.sync({ drop: true });
 
 export { Users };
 
-db.close();
+await db.close();
