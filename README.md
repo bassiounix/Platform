@@ -2,10 +2,7 @@
 
 ## Summary
 
-This project aims to:
-
-- replace the Moodle Platform for faculty of AI, Menoufia University (as i had enough headaches from it!)
-- be a connection platform for the students of the faculty
+This project aims to be a connection platform for the students of faculty of AI, Menoufia University
 
 ## How to use
 
