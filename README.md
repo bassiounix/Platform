@@ -13,8 +13,8 @@ Note that it is recommended to use a `.env` file to suit your connections with M
 Run the `run.sh` file from the command line:
 
 ```sh
-chmod +x ./run.sh # if it has no exec permission
-./run.sh
+$ chmod +x ./run.sh # if it has no exec permission
+$ ./run.sh
 ```
 
 ## Technologies used to build this project
